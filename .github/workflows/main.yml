@@ -20,6 +20,6 @@ jobs:
       id: bump_version
       uses: christian-draeger/increment-semantic-version@1.0.2
       with:
-        current-version: "1.0.${{ steps.bump_version.outputs.next-version }}"
+        current-version: "1.1.${{ steps.bump_version.outputs.next-version }}"
         version-fragment: 'alpha'
     - run: echo "Build apk to release with Build Version ${{ steps.bump_version.outputs.next-version }} > Build number ${{ steps.buildnumber.outputs.build_number }}"
