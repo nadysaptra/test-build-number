@@ -1,0 +1,33 @@
+name: Test Build Number
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'mobolms-app/**'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mobolms-app
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    # bump version
+    - name: Bump release version
+      id: bump_version
+      uses: christian-draeger/increment-semantic-version@1.0.2
+      with:
+        current-version: '1.0.1'
+        version-fragment: 'alpha'
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v3 
+      with:
+        token: ${{secrets.github_token}}  
+    - run: echo "Build apk to release with Build Version ${{ steps.bump_version.outputs.next-version }} > Build number ${{ steps.buildnumber.outputs.build_number }}"
