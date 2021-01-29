@@ -2,7 +2,7 @@ name: Test Build Number
 on:
   push:
     branches:
-    - master
+    - main
 
 jobs:
 
